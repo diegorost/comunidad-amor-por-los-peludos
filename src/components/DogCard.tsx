@@ -32,7 +32,7 @@ export function DogCard({
 
   return (
     <Card className="overflow-hidden border-cream-dark">
-      <div className="relative aspect-square w-full bg-cream-dark">
+      <div className="relative aspect-video w-full bg-cream-dark">
         {dog.photo_url ? (
           <img
             src={dog.photo_url}
