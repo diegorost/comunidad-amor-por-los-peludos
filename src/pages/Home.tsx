@@ -31,7 +31,7 @@ export function Home() {
         <img
           src={logo}
           alt="Comunidad Amor por los Peludos"
-          className="size-[15rem] object-contain md:size-[21rem]"
+          className="size-[20rem] object-contain md:size-[28rem]"
         />
         <div className="space-y-3">
           <h1 className="flex items-center justify-center gap-3 text-3xl font-bold text-ink md:text-5xl">
