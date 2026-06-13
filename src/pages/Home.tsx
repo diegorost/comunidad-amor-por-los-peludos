@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { PawPrint, Search, HeartHandshake } from "lucide-react"
+import { PawPrint, Search, HeartHandshake, Lightbulb } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import type { CommunityHighlight } from "@/lib/types"
@@ -31,7 +31,7 @@ export function Home() {
         <img
           src={logo}
           alt="Comunidad Amor por los Peludos"
-          className="size-40 rounded-full object-cover shadow-lg md:size-56"
+          className="size-40 rounded-full bg-cream object-contain shadow-lg md:size-56"
         />
         <div className="space-y-3">
           <h1 className="text-3xl font-bold text-ink md:text-5xl">
@@ -44,14 +44,24 @@ export function Home() {
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
-          <Button asChild size="lg" className="bg-gold text-ink hover:bg-gold-dark">
+          <Button asChild size="xl" className="bg-gold text-ink hover:bg-gold-dark">
             <Link to="/perritos">
               <Search className="mr-1" /> Explora nuestra comunidad
             </Link>
           </Button>
-          <Button asChild size="lg" className="bg-sky-dark text-white hover:bg-sky-dark/90">
+          <Button asChild size="xl" className="bg-sky-dark text-white hover:bg-sky-dark/90">
             <Link to="/recursos">
               <PawPrint className="mr-1" /> Recursos
+            </Link>
+          </Button>
+          <Button
+            asChild
+            size="xl"
+            variant="outline"
+            className="border-sage text-sage-dark hover:bg-sage/10"
+          >
+            <Link to="/tips">
+              <Lightbulb className="mr-1" /> Tips/Reglas
             </Link>
           </Button>
         </div>
