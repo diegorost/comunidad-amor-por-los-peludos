@@ -34,9 +34,6 @@ export function Home() {
           className="size-40 rounded-card bg-cream object-contain shadow-lg md:size-56"
         />
         <div className="space-y-3">
-          <h1 className="text-3xl font-bold text-ink md:text-5xl">
-            Presenta a tu mejor amigo
-          </h1>
           <p className="mx-auto max-w-xl text-ink-light md:text-lg">
             Una comunidad cálida para dueños de perros (Golden Retrievers o
             no!), donde compartir el perfil de tu peludo y descubrir recursos
@@ -46,7 +43,7 @@ export function Home() {
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button asChild size="xl" className="bg-gold text-ink hover:bg-gold-dark">
             <Link to="/perritos">
-              <Search className="mr-1" /> Explora nuestra comunidad
+              <Search className="mr-1" /> Explora nuestros Peludos
             </Link>
           </Button>
           <Button asChild size="xl" className="bg-sky-dark text-white hover:bg-sky-dark/90">
@@ -66,7 +63,7 @@ export function Home() {
         <div className="flex items-center gap-2">
           <HeartHandshake className="size-6 text-sage-dark" />
           <h2 className="text-2xl font-bold text-ink">
-            Destacados de la comunidad
+            Conoce a los Peludos mejor
           </h2>
         </div>
 

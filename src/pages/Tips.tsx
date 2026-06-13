@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Plus } from "lucide-react"
+import { Plus, ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { TipCard } from "@/components/TipCard"
 import { EmptyState } from "@/components/EmptyState"
@@ -9,6 +9,7 @@ import type { Tip } from "@/lib/types"
 export function Tips() {
   const [tips, setTips] = useState<Tip[]>([])
   const [loading, setLoading] = useState(true)
+  const [order, setOrder] = useState<"newest" | "oldest">("newest")
 
   useEffect(() => {
     let active = true
@@ -25,6 +26,11 @@ export function Tips() {
     }
   }, [])
 
+  const sortedTips = [...tips].sort((a, b) => {
+    const diff = new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
+    return order === "oldest" ? diff : -diff
+  })
+
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="space-y-2 text-center">
@@ -34,12 +40,26 @@ export function Tips() {
         <p className="text-ink-light">
           Consejos compartidos por la comunidad para el cuidado de tu mejor amigo.
         </p>
-        <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
-          <Link to="/tips/anadir">
-            <Plus className="size-4" />
-            Añadir tip
-          </Link>
-        </Button>
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
+            <Link to="/tips/anadir">
+              <Plus className="size-4" />
+              Añadir tip
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            className="border-cream-dark"
+            onClick={() => setOrder((prev) => (prev === "newest" ? "oldest" : "newest"))}
+          >
+            {order === "newest" ? (
+              <ArrowDownNarrowWide className="size-4" />
+            ) : (
+              <ArrowUpNarrowWide className="size-4" />
+            )}
+            {order === "newest" ? "Más nuevas primero" : "Más antiguas primero"}
+          </Button>
+        </div>
       </div>
 
       <div className="mt-8">
@@ -64,7 +84,7 @@ export function Tips() {
           />
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
-            {tips.map((tip) => (
+            {sortedTips.map((tip) => (
               <TipCard
                 key={tip.id}
                 tip={tip}
