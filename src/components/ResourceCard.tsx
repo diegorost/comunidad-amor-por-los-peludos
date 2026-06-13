@@ -3,7 +3,13 @@ import { Link } from "react-router-dom"
 import { MapPin, Phone, Globe, Pencil, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import type { Resource } from "@/lib/types"
+import type { Resource, ResourceCategory } from "@/lib/types"
+
+const categoryLabels: Record<ResourceCategory, string> = {
+  tienda: "Tienda",
+  clinica: "Clínica",
+  veterinario: "Veterinario",
+}
 
 export function ResourceCard({
   resource,
@@ -28,7 +34,12 @@ export function ResourceCard({
   return (
     <Card className="border-cream-dark">
       <CardContent className="space-y-2 p-4">
-        <h3 className="text-base font-bold text-ink">{resource.name}</h3>
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="text-base font-bold text-ink">{resource.name}</h3>
+          <span className="shrink-0 rounded-full bg-cream-dark px-2 py-0.5 text-xs font-medium text-ink-light">
+            {categoryLabels[resource.category]}
+          </span>
+        </div>
         {resource.description && (
           <p className="text-sm text-ink-light">{resource.description}</p>
         )}
