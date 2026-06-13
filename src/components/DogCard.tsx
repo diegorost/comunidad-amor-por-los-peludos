@@ -4,6 +4,7 @@ import { PawPrint, Pencil, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { PhotoDialog } from "@/components/PhotoDialog"
 import { calculateAge } from "@/lib/utils"
 import type { Dog } from "@/lib/types"
 
@@ -16,6 +17,7 @@ export function DogCard({
 }) {
   const age = calculateAge(dog.birthdate)
   const [deleting, setDeleting] = useState(false)
+  const [photoOpen, setPhotoOpen] = useState(false)
 
   const handleDelete = async () => {
     if (!window.confirm(`¿Seguro que deseas borrar a ${dog.name}?`)) return
@@ -35,7 +37,8 @@ export function DogCard({
           <img
             src={dog.photo_url}
             alt={`Foto de ${dog.name}`}
-            className="size-full object-cover"
+            className="size-full cursor-pointer object-cover"
+            onClick={() => setPhotoOpen(true)}
           />
         ) : (
           <div className="flex size-full items-center justify-center text-sage">
@@ -43,6 +46,23 @@ export function DogCard({
           </div>
         )}
       </div>
+
+      {dog.photo_url && (
+        <PhotoDialog
+          open={photoOpen}
+          onClose={() => setPhotoOpen(false)}
+          imageUrl={dog.photo_url}
+          title={dog.name}
+        >
+          {age != null && <p className="text-sm text-ink-light">{age} años</p>}
+          <Badge className="bg-sage text-white">{dog.breed}</Badge>
+          {dog.personality && (
+            <p className="text-sm text-ink-light">{dog.personality}</p>
+          )}
+          {dog.notes && <p className="text-sm text-ink-light">{dog.notes}</p>}
+          <p className="text-xs text-ink-light">Dueño/a: {dog.owner_name}</p>
+        </PhotoDialog>
+      )}
       <CardContent className="space-y-2 p-4">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-bold text-ink">{dog.name}</h3>

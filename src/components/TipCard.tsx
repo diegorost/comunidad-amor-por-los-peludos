@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import { Lightbulb, Pencil, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
+import { PhotoDialog } from "@/components/PhotoDialog"
 import type { Tip } from "@/lib/types"
 
 export function TipCard({
@@ -13,6 +14,7 @@ export function TipCard({
   onDeleted?: (id: string) => void
 }) {
   const [deleting, setDeleting] = useState(false)
+  const [photoOpen, setPhotoOpen] = useState(false)
 
   const handleDelete = async () => {
     if (!window.confirm(`¿Seguro que deseas borrar "${tip.title}"?`)) return
@@ -32,7 +34,8 @@ export function TipCard({
           <img
             src={tip.image_url}
             alt={tip.title}
-            className="mx-auto size-full w-3/4 object-contain"
+            className="mx-auto size-full w-3/4 cursor-pointer object-contain"
+            onClick={() => setPhotoOpen(true)}
           />
         ) : (
           <div className="flex size-full items-center justify-center text-sage">
@@ -40,6 +43,17 @@ export function TipCard({
           </div>
         )}
       </div>
+
+      {tip.image_url && (
+        <PhotoDialog
+          open={photoOpen}
+          onClose={() => setPhotoOpen(false)}
+          imageUrl={tip.image_url}
+          title={tip.title}
+        >
+          {tip.text && <p className="text-sm text-ink-light">{tip.text}</p>}
+        </PhotoDialog>
+      )}
       <CardContent className="space-y-2 p-4">
         <h3 className="text-lg font-bold text-ink">{tip.title}</h3>
         {tip.text && <p className="text-sm text-ink-light">{tip.text}</p>}
