@@ -45,9 +45,6 @@ export function DogCard({
             <PawPrint className="size-16" />
           </div>
         )}
-        <span className="absolute right-3 top-3 rounded-full bg-cream-dark/90 px-3 py-1 text-xs font-semibold text-ink shadow">
-          {dog.owner_name}
-        </span>
       </div>
 
       {dog.photo_url && (
@@ -67,7 +64,12 @@ export function DogCard({
         </PhotoDialog>
       )}
       <CardContent className="space-y-2 p-4">
-        <h3 className="text-xl font-bold text-ink">{dog.name}</h3>
+        <div className="flex items-start justify-between gap-2">
+          <h3 className="text-xl font-bold text-ink">{dog.name}</h3>
+          <span className="rounded-full bg-cream-dark px-3 py-1 text-xs font-semibold text-ink">
+            {dog.owner_name}
+          </span>
+        </div>
         <p className="text-sm font-bold text-gold-dark">
           {dog.breed}
           {age != null ? ` · ${age} años` : ""}
