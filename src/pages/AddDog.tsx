@@ -63,7 +63,7 @@ export function AddDog() {
         <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-gold/30 text-gold-dark">
           <PawPrint className="size-6" />
         </span>
-        <h1 className="text-3xl font-bold text-ink">Añadir perro</h1>
+        <h1 className="text-3xl font-bold text-ink">Nuevo Perfil - Añadir Peludo</h1>
         <p className="text-ink-light">
           Cuéntanos sobre tu peludo para presentarlo a la comunidad.
         </p>
