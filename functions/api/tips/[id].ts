@@ -11,14 +11,14 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
     image_url?: string | null
   }>()
 
-  if (!body.title?.trim() || !body.text?.trim()) {
+  if (!body.title?.trim()) {
     return Response.json({ error: "Faltan campos obligatorios." }, { status: 400 })
   }
 
   await context.env.DB.prepare(
     `UPDATE tips SET title = ?, text = ?, image_url = ? WHERE id = ?`
   )
-    .bind(body.title.trim(), body.text.trim(), body.image_url?.trim() || null, id)
+    .bind(body.title.trim(), body.text?.trim() || null, body.image_url?.trim() || null, id)
     .run()
 
   return Response.json({ id })

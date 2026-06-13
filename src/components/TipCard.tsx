@@ -42,7 +42,7 @@ export function TipCard({
       </div>
       <CardContent className="space-y-2 p-4">
         <h3 className="text-lg font-bold text-ink">{tip.title}</h3>
-        <p className="text-sm text-ink-light">{tip.text}</p>
+        {tip.text && <p className="text-sm text-ink-light">{tip.text}</p>}
 
         <div className="flex gap-2 pt-2">
           <Button asChild variant="outline" size="sm" className="flex-1 border-cream-dark">

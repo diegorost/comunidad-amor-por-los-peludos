@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea"
 
 export type TipFormValues = {
   title: string
-  text: string
+  text: string | null
   image_url: string | null
 }
 
@@ -58,7 +58,6 @@ export function TipForm({
   const validate = () => {
     const next: TipFormErrors = {}
     if (!form.title.trim()) next.title = "Escribe un título."
-    if (!form.text.trim()) next.text = "Escribe el contenido del tip."
     setErrors(next)
     return Object.keys(next).length === 0
   }
@@ -71,7 +70,7 @@ export function TipForm({
     await onSubmit({
       ...form,
       title: form.title.trim(),
-      text: form.text.trim(),
+      text: form.text?.trim() || null,
     })
     setSubmitting(false)
   }
@@ -110,15 +109,14 @@ export function TipForm({
       </div>
 
       <div className="space-y-1.5">
-        <Label htmlFor="text">Texto</Label>
+        <Label htmlFor="text">Descripción</Label>
         <Textarea
           id="text"
-          value={form.text}
+          value={form.text ?? ""}
           onChange={(e) => handleChange("text", e.target.value)}
           className="border-cream-dark"
           placeholder="Comparte tu consejo con la comunidad..."
         />
-        {errors.text && <p className="text-sm text-destructive">{errors.text}</p>}
       </div>
 
       <Button

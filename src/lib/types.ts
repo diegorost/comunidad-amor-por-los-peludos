@@ -34,6 +34,6 @@ export type Tip = {
   id: string
   title: string
   image_url: string | null
-  text: string
+  text: string | null
   created_at: string
 }

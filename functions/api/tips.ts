@@ -16,7 +16,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
     image_url?: string | null
   }>()
 
-  if (!body.title?.trim() || !body.text?.trim()) {
+  if (!body.title?.trim()) {
     return Response.json({ error: "Faltan campos obligatorios." }, { status: 400 })
   }
 
@@ -24,7 +24,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   await context.env.DB.prepare(
     `INSERT INTO tips (id, title, text, image_url) VALUES (?, ?, ?, ?)`
   )
-    .bind(id, body.title.trim(), body.text.trim(), body.image_url?.trim() || null)
+    .bind(id, body.title.trim(), body.text?.trim() || null, body.image_url?.trim() || null)
     .run()
 
   return Response.json({ id }, { status: 201 })
