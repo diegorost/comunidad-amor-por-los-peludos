@@ -45,7 +45,7 @@ export function DogCard({
             <PawPrint className="size-16" />
           </div>
         )}
-        <span className="absolute right-3 top-3 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-ink shadow">
+        <span className="absolute right-3 top-3 rounded-full bg-cream-dark/90 px-3 py-1 text-xs font-semibold text-ink shadow">
           {dog.owner_name}
         </span>
       </div>
