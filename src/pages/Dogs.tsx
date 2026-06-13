@@ -30,10 +30,8 @@ export function Dogs() {
   const filtered = dogs.filter((dog) => {
     const term = query.trim().toLowerCase()
     if (!term) return true
-    return (
-      dog.name.toLowerCase().includes(term) ||
-      dog.breed.toLowerCase().includes(term)
-    )
+    return [dog.name, dog.breed, dog.personality, dog.notes, dog.owner_name]
+      .some((field) => field?.toLowerCase().includes(term))
   })
 
   return (
@@ -57,7 +55,7 @@ export function Dogs() {
           <Input
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Busca por nombre o raza..."
+            placeholder="Busca por nombre, raza o palabra clave..."
             className="h-12 rounded-full border-transparent !bg-white pl-9 shadow-lg"
           />
         </div>
@@ -83,7 +81,7 @@ export function Dogs() {
             description={
               dogs.length === 0
                 ? "Sé la primera persona en presentar a tu mejor amigo y dar la bienvenida a la comunidad."
-                : "Intenta con otro nombre o raza."
+                : "Intenta con otra palabra clave."
             }
             action={
               dogs.length === 0 ? (
