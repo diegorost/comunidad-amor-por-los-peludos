@@ -80,7 +80,7 @@ export function Tips() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Busca por título o descripción..."
-            className="rounded-full border-cream-dark bg-white pl-9 shadow-md"
+            className="h-12 rounded-full border-transparent bg-white pl-9 shadow-lg"
           />
         </div>
       </div>
