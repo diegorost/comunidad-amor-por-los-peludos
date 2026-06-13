@@ -7,6 +7,9 @@ import { EditDog } from "@/pages/EditDog"
 import { Resources } from "@/pages/Resources"
 import { AddResource } from "@/pages/AddResource"
 import { EditResource } from "@/pages/EditResource"
+import { Tips } from "@/pages/Tips"
+import { AddTip } from "@/pages/AddTip"
+import { EditTip } from "@/pages/EditTip"
 
 function App() {
   return (
@@ -20,6 +23,9 @@ function App() {
           <Route path="recursos" element={<Resources />} />
           <Route path="recursos/anadir" element={<AddResource />} />
           <Route path="recursos/:id/editar" element={<EditResource />} />
+          <Route path="tips" element={<Tips />} />
+          <Route path="tips/anadir" element={<AddTip />} />
+          <Route path="tips/:id/editar" element={<EditTip />} />
         </Route>
       </Routes>
     </BrowserRouter>

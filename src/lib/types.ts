@@ -29,3 +29,11 @@ export type CommunityHighlight = {
   image_url: string | null
   text: string
 }
+
+export type Tip = {
+  id: string
+  title: string
+  image_url: string | null
+  text: string
+  created_at: string
+}

@@ -4,6 +4,7 @@ import { PawPrint, Search, HeartHandshake } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import type { CommunityHighlight } from "@/lib/types"
+import logo from "@/assets/logo.png"
 
 export function Home() {
   const [highlights, setHighlights] = useState<CommunityHighlight[]>([])
@@ -27,20 +28,18 @@ export function Home() {
   return (
     <div>
       <section className="mx-auto flex max-w-5xl flex-col items-center gap-8 px-4 py-12 text-center md:py-20">
-        <div
-          className="flex size-40 items-center justify-center rounded-full bg-gradient-to-br from-gold/40 via-sage/30 to-sky/30 text-7xl shadow-lg md:size-56 md:text-8xl"
-          role="img"
-          aria-label="Perros felices en un parque al atardecer"
-        >
-          🐶🐾
-        </div>
+        <img
+          src={logo}
+          alt="Comunidad Amor por los Peludos"
+          className="size-40 rounded-full object-cover shadow-lg md:size-56"
+        />
         <div className="space-y-3">
           <h1 className="text-3xl font-bold text-ink md:text-5xl">
             Presenta a tu mejor amigo
           </h1>
           <p className="mx-auto max-w-xl text-ink-light md:text-lg">
-            Una comunidad cálida para dueños de perros, Golden Retrievers o
-            no, donde compartir el perfil de tu peludo y descubrir recursos
+            Una comunidad cálida para dueños de perros (Golden Retrievers o
+            no!), donde compartir el perfil de tu peludo y descubrir recursos
             de confianza cerca de ti.
           </p>
         </div>
@@ -50,12 +49,7 @@ export function Home() {
               <Search className="mr-1" /> Explora nuestra comunidad
             </Link>
           </Button>
-          <Button
-            asChild
-            size="lg"
-            variant="outline"
-            className="border-sage text-sage-dark hover:bg-sage/10"
-          >
+          <Button asChild size="lg" className="bg-sky-dark text-white hover:bg-sky-dark/90">
             <Link to="/recursos">
               <PawPrint className="mr-1" /> Recursos
             </Link>
