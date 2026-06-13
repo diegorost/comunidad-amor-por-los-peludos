@@ -10,6 +10,14 @@ const navItems = [
   { to: "/tips", label: "Tips/Reglas" },
 ]
 
+function PawBadge() {
+  return (
+    <span className="flex size-9 items-center justify-center rounded-full bg-gold text-ink">
+      <PawPrint className="size-5" />
+    </span>
+  )
+}
+
 export function Layout() {
   const [open, setOpen] = useState(false)
 
@@ -17,13 +25,13 @@ export function Layout() {
     <div className="flex min-h-screen flex-col bg-cream">
       <header className="sticky top-0 z-50 border-b border-cream-dark bg-cream/90 backdrop-blur">
         <div className="mx-auto grid max-w-5xl grid-cols-2 items-center px-4 py-3 md:grid-cols-3">
-          <Link to="/" className="flex items-center gap-2 font-bold text-ink">
-            <span className="flex size-9 items-center justify-center rounded-full bg-gold text-ink">
-              <PawPrint className="size-5" />
-            </span>
+          <Link to="/" className="flex items-center md:hidden">
+            <PawBadge />
           </Link>
+          <div className="hidden md:block" />
 
           <nav className="hidden items-center justify-center gap-1 md:flex">
+            <PawBadge />
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -40,6 +48,7 @@ export function Layout() {
                 {item.label}
               </NavLink>
             ))}
+            <PawBadge />
           </nav>
 
           <button
@@ -54,6 +63,9 @@ export function Layout() {
 
         {open && (
           <nav className="flex flex-col gap-1 border-t border-cream-dark px-4 py-3 md:hidden">
+            <div className="flex justify-center py-1">
+              <PawBadge />
+            </div>
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -71,6 +83,9 @@ export function Layout() {
                 {item.label}
               </NavLink>
             ))}
+            <div className="flex justify-center py-1">
+              <PawBadge />
+            </div>
           </nav>
         )}
       </header>
