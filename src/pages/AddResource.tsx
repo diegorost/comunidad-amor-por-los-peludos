@@ -8,6 +8,7 @@ const initialValues: ResourceFormValues = {
   name: "",
   category: "tienda",
   address: "",
+  maps_url: "",
   website: "",
   phone: "",
   description: "",
@@ -23,6 +24,7 @@ export function AddResource() {
       body: JSON.stringify({
         ...values,
         address: values.address || null,
+        maps_url: values.maps_url || null,
         website: values.website || null,
         phone: values.phone || null,
         description: values.description || null,

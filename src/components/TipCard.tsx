@@ -32,7 +32,7 @@ export function TipCard({
           <img
             src={tip.image_url}
             alt={tip.title}
-            className="size-full object-cover"
+            className="mx-auto size-full w-3/4 object-contain"
           />
         ) : (
           <div className="flex size-full items-center justify-center text-sage">

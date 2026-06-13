@@ -25,6 +25,7 @@ export function EditResource() {
           name: resource.name,
           category: resource.category,
           address: resource.address ?? "",
+          maps_url: resource.maps_url ?? "",
           website: resource.website ?? "",
           phone: resource.phone ?? "",
           description: resource.description ?? "",
@@ -42,6 +43,7 @@ export function EditResource() {
       body: JSON.stringify({
         ...values,
         address: values.address || null,
+        maps_url: values.maps_url || null,
         website: values.website || null,
         phone: values.phone || null,
         description: values.description || null,

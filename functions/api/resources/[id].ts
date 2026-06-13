@@ -10,6 +10,7 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
     name?: string
     category?: string
     address?: string | null
+    maps_url?: string | null
     website?: string | null
     phone?: string | null
     description?: string | null
@@ -21,13 +22,14 @@ export const onRequestPut: PagesFunction<Env> = async (context) => {
 
   await context.env.DB.prepare(
     `UPDATE resources
-     SET name = ?, category = ?, address = ?, website = ?, phone = ?, description = ?
+     SET name = ?, category = ?, address = ?, maps_url = ?, website = ?, phone = ?, description = ?
      WHERE id = ?`
   )
     .bind(
       body.name.trim(),
       body.category,
       body.address?.trim() || null,
+      body.maps_url?.trim() || null,
       body.website?.trim() || null,
       body.phone?.trim() || null,
       body.description?.trim() || null,

@@ -9,6 +9,7 @@ export type ResourceFormValues = {
   name: string
   category: ResourceCategory
   address: string
+  maps_url: string
   website: string
   phone: string
   description: string
@@ -59,6 +60,7 @@ export function ResourceForm({
       ...form,
       name: form.name.trim(),
       address: form.address.trim(),
+      maps_url: form.maps_url.trim(),
       website: form.website.trim(),
       phone: form.phone.trim(),
       description: form.description.trim(),
@@ -124,6 +126,17 @@ export function ResourceForm({
           value={form.address}
           onChange={(e) => handleChange("address", e.target.value)}
           className="border-cream-dark"
+        />
+      </div>
+
+      <div className="space-y-1.5">
+        <Label htmlFor="maps_url">Dirección en Google Maps</Label>
+        <Input
+          id="maps_url"
+          value={form.maps_url}
+          onChange={(e) => handleChange("maps_url", e.target.value)}
+          className="border-cream-dark"
+          placeholder="https://maps.app.goo.gl/..."
         />
       </div>
 

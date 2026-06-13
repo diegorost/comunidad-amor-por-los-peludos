@@ -28,7 +28,9 @@ export function Tips() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold text-ink">Tips para tu peludo</h1>
+        <h1 className="text-3xl font-bold text-ink">
+          Reglas de la Comunidad y Tips para tu Peludo
+        </h1>
         <p className="text-ink-light">
           Consejos compartidos por la comunidad para el cuidado de tu mejor amigo.
         </p>

@@ -18,6 +18,7 @@ export type Resource = {
   name: string
   category: ResourceCategory
   address: string | null
+  maps_url: string | null
   website: string | null
   phone: string | null
   description: string | null
