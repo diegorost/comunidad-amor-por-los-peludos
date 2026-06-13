@@ -32,12 +32,12 @@ export function DogCard({
 
   return (
     <Card className="overflow-hidden border-cream-dark">
-      <div className="relative aspect-[4/3] w-full bg-cream-dark">
+      <div className="relative aspect-square w-full bg-cream-dark">
         {dog.photo_url ? (
           <img
             src={dog.photo_url}
             alt={`Foto de ${dog.name}`}
-            className="size-full cursor-pointer object-contain"
+            className="size-full cursor-pointer object-cover"
             onClick={() => setPhotoOpen(true)}
           />
         ) : (
