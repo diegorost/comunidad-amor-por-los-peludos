@@ -1,20 +1,46 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ShoppingBag, Stethoscope, Ambulance, Plus } from "lucide-react"
+import { ShoppingBag, Stethoscope, Ambulance, Plus, Search } from "lucide-react"
 import { ResourceCard } from "@/components/ResourceCard"
 import { EmptyState } from "@/components/EmptyState"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import type { Resource, ResourceCategory } from "@/lib/types"
 
-const sections: { category: ResourceCategory; title: string; icon: typeof ShoppingBag }[] = [
-  { category: "tienda", title: "Tiendas Recomendadas", icon: ShoppingBag },
-  { category: "clinica", title: "Clínicas de Emergencia", icon: Stethoscope },
-  { category: "veterinario", title: "Veterinarios y Especialidades", icon: Ambulance },
+const sections: {
+  category: ResourceCategory
+  title: string
+  icon: typeof ShoppingBag
+  iconBg: string
+  iconColor: string
+}[] = [
+  {
+    category: "veterinario",
+    title: "Veterinarios y Especialidades",
+    icon: Stethoscope,
+    iconBg: "bg-sage/30",
+    iconColor: "text-sage-dark",
+  },
+  {
+    category: "clinica",
+    title: "Clínicas de Emergencia",
+    icon: Ambulance,
+    iconBg: "bg-sky/30",
+    iconColor: "text-sky-dark",
+  },
+  {
+    category: "tienda",
+    title: "Tiendas Recomendadas",
+    icon: ShoppingBag,
+    iconBg: "bg-gold/30",
+    iconColor: "text-gold-dark",
+  },
 ]
 
 export function Resources() {
   const [resources, setResources] = useState<Resource[]>([])
   const [loading, setLoading] = useState(true)
+  const [query, setQuery] = useState("")
 
   useEffect(() => {
     let active = true
@@ -47,13 +73,34 @@ export function Resources() {
         </Button>
       </div>
 
+      <div className="mx-auto mt-6 max-w-md">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-light" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Busca por nombre o descripción..."
+            className="rounded-full border-cream-dark bg-white pl-9"
+          />
+        </div>
+      </div>
+
       <div className="mt-8 space-y-10">
-        {sections.map(({ category, title, icon: Icon }) => {
-          const items = resources.filter((r) => r.category === category)
+        {sections.map(({ category, title, icon: Icon, iconBg, iconColor }) => {
+          const term = query.trim().toLowerCase()
+          const items = resources.filter(
+            (r) =>
+              r.category === category &&
+              (!term ||
+                r.name.toLowerCase().includes(term) ||
+                (r.description?.toLowerCase().includes(term) ?? false))
+          )
           return (
             <section key={category}>
               <div className="mb-4 flex items-center gap-2">
-                <Icon className="size-6 text-sage-dark" />
+                <span className={`flex size-9 shrink-0 items-center justify-center rounded-full ${iconBg} ${iconColor}`}>
+                  <Icon className="size-5" />
+                </span>
                 <h2 className="text-2xl font-bold text-ink">{title}</h2>
               </div>
 
@@ -68,8 +115,16 @@ export function Resources() {
                 </div>
               ) : items.length === 0 ? (
                 <EmptyState
-                  title="Aún no hay recomendaciones"
-                  description="Pronto añadiremos opciones de confianza en esta categoría."
+                  title={
+                    term
+                      ? "No encontramos resultados con esa búsqueda"
+                      : "Aún no hay recomendaciones"
+                  }
+                  description={
+                    term
+                      ? "Intenta con otro nombre o descripción."
+                      : "Pronto añadiremos opciones de confianza en esta categoría."
+                  }
                 />
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
