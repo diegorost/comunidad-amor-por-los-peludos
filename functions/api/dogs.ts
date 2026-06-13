@@ -13,7 +13,7 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
   const body = await context.request.json<{
     name?: string
     breed?: string
-    age?: number | null
+    birthdate?: string | null
     personality?: string | null
     notes?: string | null
     owner_name?: string
@@ -25,14 +25,14 @@ export const onRequestPost: PagesFunction<Env> = async (context) => {
 
   const id = crypto.randomUUID()
   await context.env.DB.prepare(
-    `INSERT INTO dogs (id, name, breed, age, personality, notes, owner_name)
+    `INSERT INTO dogs (id, name, breed, birthdate, personality, notes, owner_name)
      VALUES (?, ?, ?, ?, ?, ?, ?)`
   )
     .bind(
       id,
       body.name.trim(),
       body.breed.trim(),
-      body.age ?? null,
+      body.birthdate?.trim() || null,
       body.personality?.trim() || null,
       body.notes?.trim() || null,
       body.owner_name.trim()

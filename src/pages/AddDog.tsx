@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import { calculateAge } from "@/lib/utils"
 
 type FormState = {
   name: string
   breed: string
-  age: string
+  birthdate: string
   personality: string
   notes: string
   owner_name: string
@@ -18,7 +19,7 @@ type FormState = {
 const initialState: FormState = {
   name: "",
   breed: "",
-  age: "",
+  birthdate: "",
   personality: "",
   notes: "",
   owner_name: "",
@@ -39,8 +40,8 @@ export function AddDog() {
     if (!form.name.trim()) next.name = "Cuéntanos el nombre de tu perro."
     if (!form.breed.trim()) next.breed = "Indica la raza de tu perro."
     if (!form.owner_name.trim()) next.owner_name = "Indica tu nombre."
-    if (form.age && (Number(form.age) < 0 || Number(form.age) > 30)) {
-      next.age = "Ingresa una edad válida."
+    if (form.birthdate && new Date(form.birthdate) > new Date()) {
+      next.birthdate = "La fecha de cumpleaños no puede ser futura."
     }
     setErrors(next)
     return Object.keys(next).length === 0
@@ -57,7 +58,7 @@ export function AddDog() {
       body: JSON.stringify({
         name: form.name.trim(),
         breed: form.breed.trim(),
-        age: form.age ? Number(form.age) : null,
+        birthdate: form.birthdate || null,
         personality: form.personality.trim() || null,
         notes: form.notes.trim() || null,
         owner_name: form.owner_name.trim(),
@@ -132,18 +133,33 @@ export function AddDog() {
             {errors.breed && <p className="text-sm text-destructive">{errors.breed}</p>}
           </div>
           <div className="space-y-1.5">
-            <Label htmlFor="age">Edad (años)</Label>
+            <Label htmlFor="birthdate">Fecha de cumpleaños</Label>
             <Input
-              id="age"
-              type="number"
-              min={0}
-              max={30}
-              value={form.age}
-              onChange={(e) => handleChange("age", e.target.value)}
+              id="birthdate"
+              type="date"
+              max={new Date().toISOString().split("T")[0]}
+              value={form.birthdate}
+              onChange={(e) => handleChange("birthdate", e.target.value)}
               className="border-cream-dark"
             />
-            {errors.age && <p className="text-sm text-destructive">{errors.age}</p>}
+            {errors.birthdate && (
+              <p className="text-sm text-destructive">{errors.birthdate}</p>
+            )}
           </div>
+        </div>
+
+        <div className="space-y-1.5">
+          <Label htmlFor="age">Edad</Label>
+          <Input
+            id="age"
+            disabled
+            value={
+              form.birthdate
+                ? `${calculateAge(form.birthdate)} años`
+                : "Se calcula a partir del cumpleaños"
+            }
+            className="border-cream-dark text-ink-light"
+          />
         </div>
 
         <div className="space-y-1.5">

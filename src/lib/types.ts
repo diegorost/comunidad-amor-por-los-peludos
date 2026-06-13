@@ -3,7 +3,7 @@ export type Dog = {
   name: string
   photo_url: string | null
   breed: string
-  age: number | null
+  birthdate: string | null
   personality: string | null
   notes: string | null
   owner_name: string

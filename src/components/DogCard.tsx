@@ -1,9 +1,12 @@
 import { PawPrint } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
+import { calculateAge } from "@/lib/utils"
 import type { Dog } from "@/lib/types"
 
 export function DogCard({ dog }: { dog: Dog }) {
+  const age = calculateAge(dog.birthdate)
+
   return (
     <Card className="overflow-hidden border-cream-dark transition-transform hover:-translate-y-1 hover:shadow-lg">
       <div className="aspect-square w-full bg-cream-dark">
@@ -22,8 +25,8 @@ export function DogCard({ dog }: { dog: Dog }) {
       <CardContent className="space-y-2 p-4">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-bold text-ink">{dog.name}</h3>
-          {dog.age != null && (
-            <span className="text-sm text-ink-light">{dog.age} años</span>
+          {age != null && (
+            <span className="text-sm text-ink-light">{age} años</span>
           )}
         </div>
         <Badge className="bg-sage text-white">{dog.breed}</Badge>
