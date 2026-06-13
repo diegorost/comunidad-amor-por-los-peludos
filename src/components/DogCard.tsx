@@ -32,12 +32,12 @@ export function DogCard({
 
   return (
     <Card className="overflow-hidden border-cream-dark">
-      <div className="aspect-video w-full bg-cream-dark">
+      <div className="relative aspect-square w-full bg-cream-dark">
         {dog.photo_url ? (
           <img
             src={dog.photo_url}
             alt={`Foto de ${dog.name}`}
-            className="mx-auto size-full w-3/4 cursor-pointer object-contain"
+            className="size-full cursor-pointer object-cover"
             onClick={() => setPhotoOpen(true)}
           />
         ) : (
@@ -45,6 +45,9 @@ export function DogCard({
             <PawPrint className="size-16" />
           </div>
         )}
+        <span className="absolute right-3 top-3 rounded-full bg-cream/90 px-3 py-1 text-xs font-semibold text-ink shadow">
+          {dog.owner_name}
+        </span>
       </div>
 
       {dog.photo_url && (
@@ -64,17 +67,14 @@ export function DogCard({
         </PhotoDialog>
       )}
       <CardContent className="space-y-2 p-4">
-        <div className="flex items-center justify-between gap-2">
-          <h3 className="text-lg font-bold text-ink">{dog.name}</h3>
-          {age != null && (
-            <span className="text-sm text-ink-light">{age} años</span>
-          )}
-        </div>
-        <Badge className="bg-sage text-white">{dog.breed}</Badge>
+        <h3 className="text-lg font-bold text-ink">{dog.name}</h3>
+        <p className="text-sm font-semibold text-gold-dark">
+          {dog.breed}
+          {age != null ? ` · ${age} años` : ""}
+        </p>
         {dog.personality && (
           <p className="text-sm text-ink-light">{dog.personality}</p>
         )}
-        <p className="text-xs text-ink-light">Dueño/a: {dog.owner_name}</p>
 
         <div className="flex gap-2 pt-2">
           <Button asChild variant="outline" size="sm" className="flex-1 border-cream-dark">
