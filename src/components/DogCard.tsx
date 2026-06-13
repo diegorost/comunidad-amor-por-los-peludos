@@ -32,7 +32,7 @@ export function DogCard({
 
   return (
     <Card className="overflow-hidden border-cream-dark">
-      <div className="relative aspect-square w-full bg-cream-dark">
+      <div className="relative aspect-[4/3] w-full bg-cream-dark">
         {dog.photo_url ? (
           <img
             src={dog.photo_url}
@@ -45,7 +45,7 @@ export function DogCard({
             <PawPrint className="size-16" />
           </div>
         )}
-        <span className="absolute right-3 top-3 rounded-full bg-cream/90 px-3 py-1 text-xs font-semibold text-ink shadow">
+        <span className="absolute right-3 top-3 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-ink shadow">
           {dog.owner_name}
         </span>
       </div>
@@ -67,8 +67,8 @@ export function DogCard({
         </PhotoDialog>
       )}
       <CardContent className="space-y-2 p-4">
-        <h3 className="text-lg font-bold text-ink">{dog.name}</h3>
-        <p className="text-sm font-semibold text-gold-dark">
+        <h3 className="text-xl font-bold text-ink">{dog.name}</h3>
+        <p className="text-sm font-bold text-gold-dark">
           {dog.breed}
           {age != null ? ` · ${age} años` : ""}
         </p>
