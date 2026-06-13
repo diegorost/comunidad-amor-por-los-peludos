@@ -70,7 +70,7 @@ export function ResourceCard({
               className="flex items-center gap-2 text-sky-dark hover:underline"
             >
               <MapPin className="size-4" />
-              Maps
+              Link Google Maps: {resource.maps_url}
             </a>
           )}
           {resource.phone && (
