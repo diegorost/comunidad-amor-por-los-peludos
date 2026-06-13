@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ShoppingBag, Stethoscope, HeartPulse, Plus } from "lucide-react"
+import { ShoppingBag, Stethoscope, Ambulance, Plus } from "lucide-react"
 import { ResourceCard } from "@/components/ResourceCard"
 import { EmptyState } from "@/components/EmptyState"
 import { Button } from "@/components/ui/button"
@@ -8,8 +8,8 @@ import type { Resource, ResourceCategory } from "@/lib/types"
 
 const sections: { category: ResourceCategory; title: string; icon: typeof ShoppingBag }[] = [
   { category: "tienda", title: "Tiendas Recomendadas", icon: ShoppingBag },
-  { category: "clinica", title: "Clínicas de Emergencia", icon: HeartPulse },
-  { category: "veterinario", title: "Veterinarios y Especialidades", icon: Stethoscope },
+  { category: "clinica", title: "Clínicas de Emergencia", icon: Stethoscope },
+  { category: "veterinario", title: "Veterinarios y Especialidades", icon: Ambulance },
 ]
 
 export function Resources() {
