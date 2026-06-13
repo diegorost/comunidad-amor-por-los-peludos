@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { ShoppingBag, Stethoscope, Ambulance, Plus, Search } from "lucide-react"
+import { Plus, Search } from "lucide-react"
 import { ResourceCard } from "@/components/ResourceCard"
 import { EmptyState } from "@/components/EmptyState"
 import { Button } from "@/components/ui/button"
@@ -10,30 +10,26 @@ import type { Resource, ResourceCategory } from "@/lib/types"
 const sections: {
   category: ResourceCategory
   title: string
-  icon: typeof ShoppingBag
+  emoji: string
   iconBg: string
-  iconColor: string
 }[] = [
   {
     category: "veterinario",
     title: "Veterinarios y Especialidades",
-    icon: Stethoscope,
+    emoji: "🩺",
     iconBg: "bg-sage/30",
-    iconColor: "text-sage-dark",
   },
   {
     category: "clinica",
     title: "Clínicas de Emergencia",
-    icon: Ambulance,
+    emoji: "🚑",
     iconBg: "bg-sky/30",
-    iconColor: "text-sky-dark",
   },
   {
     category: "tienda",
     title: "Tiendas Recomendadas",
-    icon: ShoppingBag,
+    emoji: "🛍️",
     iconBg: "bg-gold/30",
-    iconColor: "text-gold-dark",
   },
 ]
 
@@ -86,7 +82,7 @@ export function Resources() {
       </div>
 
       <div className="mt-8 space-y-10">
-        {sections.map(({ category, title, icon: Icon, iconBg, iconColor }) => {
+        {sections.map(({ category, title, emoji, iconBg }) => {
           const term = query.trim().toLowerCase()
           const items = resources.filter(
             (r) =>
@@ -98,8 +94,8 @@ export function Resources() {
           return (
             <section key={category}>
               <div className="mb-4 flex items-center gap-2">
-                <span className={`flex size-9 shrink-0 items-center justify-center rounded-full ${iconBg} ${iconColor}`}>
-                  <Icon className="size-5" />
+                <span className={`flex size-9 shrink-0 items-center justify-center rounded-full text-lg ${iconBg}`}>
+                  {emoji}
                 </span>
                 <h2 className="text-2xl font-bold text-ink">{title}</h2>
               </div>
