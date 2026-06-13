@@ -105,22 +105,6 @@ export function Home() {
         )}
       </section>
 
-      <section className="mx-auto max-w-5xl px-4 py-10">
-        <Card className="border-cream-dark bg-sky/20">
-          <CardContent className="flex flex-col items-center gap-3 p-8 text-center">
-            <h2 className="text-2xl font-bold text-ink">
-              Encuentra ayuda cuando la necesites
-            </h2>
-            <p className="max-w-md text-ink-light">
-              Tiendas recomendadas, clínicas de emergencia y veterinarios de
-              confianza, todo en un solo lugar.
-            </p>
-            <Button asChild className="bg-sky-dark text-white hover:bg-sky-dark/90">
-              <Link to="/recursos">Ver recursos</Link>
-            </Button>
-          </CardContent>
-        </Card>
-      </section>
     </div>
   )
 }
