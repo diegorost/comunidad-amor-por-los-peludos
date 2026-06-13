@@ -54,12 +54,7 @@ export function Home() {
               <PawPrint className="mr-1" /> Recursos
             </Link>
           </Button>
-          <Button
-            asChild
-            size="xl"
-            variant="outline"
-            className="border-sage text-sage-dark hover:bg-sage/10"
-          >
+          <Button asChild size="xl" className="bg-sage-dark text-white hover:bg-sage-dark/90">
             <Link to="/tips">
               <Lightbulb className="mr-1" /> Tips/Reglas
             </Link>
