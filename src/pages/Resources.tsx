@@ -74,7 +74,13 @@ export function Resources() {
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
                   {items.map((resource) => (
-                    <ResourceCard key={resource.id} resource={resource} />
+                    <ResourceCard
+                      key={resource.id}
+                      resource={resource}
+                      onDeleted={(id) =>
+                        setResources((prev) => prev.filter((r) => r.id !== id))
+                      }
+                    />
                   ))}
                 </div>
               )}

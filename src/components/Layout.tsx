@@ -5,8 +5,7 @@ import { cn } from "@/lib/utils"
 
 const navItems = [
   { to: "/", label: "Inicio" },
-  { to: "/perritos", label: "Perritos" },
-  { to: "/anadir", label: "Añadir Perro" },
+  { to: "/perritos", label: "Peludos" },
   { to: "/recursos", label: "Recursos" },
 ]
 

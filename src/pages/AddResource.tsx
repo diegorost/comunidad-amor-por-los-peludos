@@ -1,22 +1,10 @@
-import { useState, type FormEvent } from "react"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 import { CheckCircle2, ShoppingBag } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import type { ResourceCategory } from "@/lib/types"
+import { ResourceForm, type ResourceFormValues } from "@/components/ResourceForm"
 
-type FormState = {
-  name: string
-  category: ResourceCategory
-  address: string
-  website: string
-  phone: string
-  description: string
-}
-
-const initialState: FormState = {
+const initialValues: ResourceFormValues = {
   name: "",
   category: "tienda",
   address: "",
@@ -25,52 +13,24 @@ const initialState: FormState = {
   description: "",
 }
 
-const categoryOptions: { value: ResourceCategory; label: string }[] = [
-  { value: "tienda", label: "Tienda" },
-  { value: "clinica", label: "Clínica de emergencia" },
-  { value: "veterinario", label: "Veterinario o especialista" },
-]
-
 export function AddResource() {
-  const [form, setForm] = useState<FormState>(initialState)
-  const [errors, setErrors] = useState<Partial<FormState>>({})
-  const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
 
-  const handleChange = (field: keyof FormState, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }))
-  }
-
-  const validate = () => {
-    const next: Partial<FormState> = {}
-    if (!form.name.trim()) next.name = "Cuéntanos el nombre del recurso."
-    setErrors(next)
-    return Object.keys(next).length === 0
-  }
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault()
-    if (!validate()) return
-
-    setSubmitting(true)
+  const handleSubmit = async (values: ResourceFormValues) => {
     const res = await fetch("/api/resources", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        name: form.name.trim(),
-        category: form.category,
-        address: form.address.trim() || null,
-        website: form.website.trim() || null,
-        phone: form.phone.trim() || null,
-        description: form.description.trim() || null,
+        ...values,
+        address: values.address || null,
+        website: values.website || null,
+        phone: values.phone || null,
+        description: values.description || null,
       }),
     })
-    setSubmitting(false)
 
-    if (res.ok) {
-      setSuccess(true)
-      setForm(initialState)
-    }
+    if (res.ok) setSuccess(true)
+    return res.ok
   }
 
   if (success) {
@@ -110,85 +70,12 @@ export function AddResource() {
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="mt-8 space-y-5">
-        <div className="space-y-1.5">
-          <Label htmlFor="name">Nombre</Label>
-          <Input
-            id="name"
-            value={form.name}
-            onChange={(e) => handleChange("name", e.target.value)}
-            className="border-cream-dark"
-          />
-          {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="category">Categoría</Label>
-          <select
-            id="category"
-            value={form.category}
-            onChange={(e) => handleChange("category", e.target.value)}
-            className="flex h-9 w-full rounded-md border border-cream-dark bg-transparent px-3 py-1 text-sm shadow-xs outline-none"
-          >
-            {categoryOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div className="space-y-1.5">
-            <Label htmlFor="phone">Teléfono</Label>
-            <Input
-              id="phone"
-              value={form.phone}
-              onChange={(e) => handleChange("phone", e.target.value)}
-              className="border-cream-dark"
-            />
-          </div>
-          <div className="space-y-1.5">
-            <Label htmlFor="website">Sitio web</Label>
-            <Input
-              id="website"
-              value={form.website}
-              onChange={(e) => handleChange("website", e.target.value)}
-              className="border-cream-dark"
-              placeholder="https://..."
-            />
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="address">Dirección</Label>
-          <Input
-            id="address"
-            value={form.address}
-            onChange={(e) => handleChange("address", e.target.value)}
-            className="border-cream-dark"
-          />
-        </div>
-
-        <div className="space-y-1.5">
-          <Label htmlFor="description">Descripción</Label>
-          <Textarea
-            id="description"
-            value={form.description}
-            onChange={(e) => handleChange("description", e.target.value)}
-            className="border-cream-dark"
-            placeholder="Cuéntanos por qué lo recomiendas..."
-          />
-        </div>
-
-        <Button
-          type="submit"
-          disabled={submitting}
-          className="w-full bg-gold text-ink hover:bg-gold-dark"
-        >
-          {submitting ? "Guardando..." : "Añadir recurso"}
-        </Button>
-      </form>
+      <ResourceForm
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        submitLabel="Añadir recurso"
+        submittingLabel="Guardando..."
+      />
     </div>
   )
 }

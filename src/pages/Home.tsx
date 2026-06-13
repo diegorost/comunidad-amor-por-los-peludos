@@ -39,9 +39,9 @@ export function Home() {
             Presenta a tu mejor amigo
           </h1>
           <p className="mx-auto max-w-xl text-ink-light md:text-lg">
-            Una comunidad cálida para dueños de perros, especialmente Golden
-            Retrievers, donde compartir el perfil de tu peludo y descubrir
-            recursos de confianza cerca de ti.
+            Una comunidad cálida para dueños de perros, Golden Retrievers o
+            no, donde compartir el perfil de tu peludo y descubrir recursos
+            de confianza cerca de ti.
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row">
@@ -56,8 +56,8 @@ export function Home() {
             variant="outline"
             className="border-sage text-sage-dark hover:bg-sage/10"
           >
-            <Link to="/anadir">
-              <PawPrint className="mr-1" /> Añadir perro
+            <Link to="/recursos">
+              <PawPrint className="mr-1" /> Recursos
             </Link>
           </Button>
         </div>

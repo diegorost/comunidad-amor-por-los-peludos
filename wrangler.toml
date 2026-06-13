@@ -6,3 +6,7 @@ compatibility_date = "2026-06-12"
 binding = "DB"
 database_name = "comunidad-amor-db"
 database_id = "fb70d4c9-39a1-4a14-9b18-22627bdecd45"
+
+[[r2_buckets]]
+binding = "PHOTOS"
+bucket_name = "comunidad-amor-photos"

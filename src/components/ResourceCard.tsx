@@ -1,8 +1,30 @@
-import { MapPin, Phone, Globe } from "lucide-react"
+import { useState } from "react"
+import { Link } from "react-router-dom"
+import { MapPin, Phone, Globe, Pencil, Trash2 } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
 import type { Resource } from "@/lib/types"
 
-export function ResourceCard({ resource }: { resource: Resource }) {
+export function ResourceCard({
+  resource,
+  onDeleted,
+}: {
+  resource: Resource
+  onDeleted?: (id: string) => void
+}) {
+  const [deleting, setDeleting] = useState(false)
+
+  const handleDelete = async () => {
+    if (!window.confirm(`¿Seguro que deseas borrar "${resource.name}"?`)) return
+    setDeleting(true)
+    const res = await fetch(`/api/resources/${resource.id}`, { method: "DELETE" })
+    if (res.ok) {
+      onDeleted?.(resource.id)
+    } else {
+      setDeleting(false)
+    }
+  }
+
   return (
     <Card className="border-cream-dark">
       <CardContent className="space-y-2 p-4">
@@ -34,6 +56,25 @@ export function ResourceCard({ resource }: { resource: Resource }) {
               Sitio web
             </a>
           )}
+        </div>
+
+        <div className="flex gap-2 pt-2">
+          <Button asChild variant="outline" size="sm" className="flex-1 border-cream-dark">
+            <Link to={`/recursos/${resource.id}/editar`}>
+              <Pencil className="size-4" />
+              Editar
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="flex-1 border-cream-dark text-destructive hover:bg-destructive/10"
+            onClick={handleDelete}
+            disabled={deleting}
+          >
+            <Trash2 className="size-4" />
+            Borrar
+          </Button>
         </div>
       </CardContent>
     </Card>

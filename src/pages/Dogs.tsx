@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Search } from "lucide-react"
+import { Plus, Search } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DogCard } from "@/components/DogCard"
@@ -39,10 +39,16 @@ export function Dogs() {
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold text-ink">Perritos de la comunidad</h1>
+        <h1 className="text-3xl font-bold text-ink">Peludos de la comunidad</h1>
         <p className="text-ink-light">
           Conoce a los peludos que forman parte de nuestra comunidad.
         </p>
+        <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
+          <Link to="/anadir">
+            <Plus className="size-4" />
+            Añadir Peludo
+          </Link>
+        </Button>
       </div>
 
       <div className="mx-auto mt-6 max-w-md">
@@ -71,8 +77,8 @@ export function Dogs() {
           <EmptyState
             title={
               dogs.length === 0
-                ? "Aún no hay perritos en la comunidad"
-                : "No encontramos perritos con esa búsqueda"
+                ? "Aún no hay peludos en la comunidad"
+                : "No encontramos peludos con esa búsqueda"
             }
             description={
               dogs.length === 0
@@ -82,7 +88,7 @@ export function Dogs() {
             action={
               dogs.length === 0 ? (
                 <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
-                  <Link to="/anadir">Añadir perro</Link>
+                  <Link to="/anadir">Añadir Peludo</Link>
                 </Button>
               ) : undefined
             }
@@ -90,7 +96,11 @@ export function Dogs() {
         ) : (
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             {filtered.map((dog) => (
-              <DogCard key={dog.id} dog={dog} />
+              <DogCard
+                key={dog.id}
+                dog={dog}
+                onDeleted={(id) => setDogs((prev) => prev.filter((d) => d.id !== id))}
+              />
             ))}
           </div>
         )}
