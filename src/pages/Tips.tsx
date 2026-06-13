@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import { Plus, ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react"
+import { Plus, Search, ArrowDownNarrowWide, ArrowUpNarrowWide } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 import { TipCard } from "@/components/TipCard"
 import { EmptyState } from "@/components/EmptyState"
 import type { Tip } from "@/lib/types"
@@ -10,6 +11,7 @@ export function Tips() {
   const [tips, setTips] = useState<Tip[]>([])
   const [loading, setLoading] = useState(true)
   const [order, setOrder] = useState<"newest" | "oldest">("newest")
+  const [query, setQuery] = useState("")
 
   useEffect(() => {
     let active = true
@@ -26,7 +28,16 @@ export function Tips() {
     }
   }, [])
 
-  const sortedTips = [...tips].sort((a, b) => {
+  const filtered = tips.filter((tip) => {
+    const term = query.trim().toLowerCase()
+    if (!term) return true
+    return (
+      tip.title.toLowerCase().includes(term) ||
+      (tip.text?.toLowerCase().includes(term) ?? false)
+    )
+  })
+
+  const sortedTips = [...filtered].sort((a, b) => {
     const diff = new Date(a.created_at).getTime() - new Date(b.created_at).getTime()
     return order === "oldest" ? diff : -diff
   })
@@ -62,6 +73,18 @@ export function Tips() {
         </div>
       </div>
 
+      <div className="mx-auto mt-6 max-w-md">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-ink-light" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Busca por título o descripción..."
+            className="rounded-full border-cream-dark bg-white pl-9"
+          />
+        </div>
+      </div>
+
       <div className="mt-8">
         {loading ? (
           <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
@@ -72,14 +95,24 @@ export function Tips() {
               />
             ))}
           </div>
-        ) : tips.length === 0 ? (
+        ) : sortedTips.length === 0 ? (
           <EmptyState
-            title="Aún no hay tips en la comunidad"
-            description="Sé la primera persona en compartir un consejo con la comunidad."
+            title={
+              tips.length === 0
+                ? "Aún no hay tips en la comunidad"
+                : "No encontramos tips con esa búsqueda"
+            }
+            description={
+              tips.length === 0
+                ? "Sé la primera persona en compartir un consejo con la comunidad."
+                : "Intenta con otro título o descripción."
+            }
             action={
-              <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
-                <Link to="/tips/anadir">Añadir tip</Link>
-              </Button>
+              tips.length === 0 ? (
+                <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
+                  <Link to="/tips/anadir">Añadir tip</Link>
+                </Button>
+              ) : undefined
             }
           />
         ) : (
