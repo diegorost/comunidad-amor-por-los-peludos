@@ -5,7 +5,6 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { DogCard } from "@/components/DogCard"
 import { EmptyState } from "@/components/EmptyState"
-import { supabase } from "@/lib/supabase"
 import type { Dog } from "@/lib/types"
 
 export function Dogs() {
@@ -15,11 +14,9 @@ export function Dogs() {
 
   useEffect(() => {
     let active = true
-    supabase
-      .from("dogs")
-      .select("*")
-      .order("created_at", { ascending: false })
-      .then(({ data }) => {
+    fetch("/api/dogs")
+      .then((res) => res.json())
+      .then((data) => {
         if (active) {
           setDogs(data ?? [])
           setLoading(false)

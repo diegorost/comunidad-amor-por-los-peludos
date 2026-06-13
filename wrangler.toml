@@ -1,0 +1,8 @@
+name = "comunidad-amor-por-los-peludos"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-06-12"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "comunidad-amor-db"
+database_id = "fb70d4c9-39a1-4a14-9b18-22627bdecd45"

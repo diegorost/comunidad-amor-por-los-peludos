@@ -4,7 +4,6 @@ import { ShoppingBag, Stethoscope, HeartPulse, Plus } from "lucide-react"
 import { ResourceCard } from "@/components/ResourceCard"
 import { EmptyState } from "@/components/EmptyState"
 import { Button } from "@/components/ui/button"
-import { supabase } from "@/lib/supabase"
 import type { Resource, ResourceCategory } from "@/lib/types"
 
 const sections: { category: ResourceCategory; title: string; icon: typeof ShoppingBag }[] = [
@@ -19,10 +18,9 @@ export function Resources() {
 
   useEffect(() => {
     let active = true
-    supabase
-      .from("resources")
-      .select("*")
-      .then(({ data }) => {
+    fetch("/api/resources")
+      .then((res) => res.json())
+      .then((data) => {
         if (active) {
           setResources(data ?? [])
           setLoading(false)

@@ -1,13 +1,10 @@
 import { useState, type FormEvent } from "react"
 import { Link } from "react-router-dom"
-import { CheckCircle2, LogIn, PawPrint } from "lucide-react"
+import { CheckCircle2, PawPrint } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
-import { supabase } from "@/lib/supabase"
-import { useSession } from "@/hooks/useSession"
 
 type FormState = {
   name: string
@@ -28,13 +25,10 @@ const initialState: FormState = {
 }
 
 export function AddDog() {
-  const { session, loading } = useSession()
   const [form, setForm] = useState<FormState>(initialState)
   const [errors, setErrors] = useState<Partial<FormState>>({})
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [email, setEmail] = useState("")
-  const [magicLinkSent, setMagicLinkSent] = useState(false)
 
   const handleChange = (field: keyof FormState, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }))
@@ -57,74 +51,24 @@ export function AddDog() {
     if (!validate()) return
 
     setSubmitting(true)
-    const { error } = await supabase.from("dogs").insert({
-      name: form.name.trim(),
-      breed: form.breed.trim(),
-      age: form.age ? Number(form.age) : null,
-      personality: form.personality.trim() || null,
-      notes: form.notes.trim() || null,
-      owner_name: form.owner_name.trim(),
-      owner_id: session?.user.id ?? null,
+    const res = await fetch("/api/dogs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: form.name.trim(),
+        breed: form.breed.trim(),
+        age: form.age ? Number(form.age) : null,
+        personality: form.personality.trim() || null,
+        notes: form.notes.trim() || null,
+        owner_name: form.owner_name.trim(),
+      }),
     })
     setSubmitting(false)
 
-    if (!error) {
+    if (res.ok) {
       setSuccess(true)
       setForm(initialState)
     }
-  }
-
-  const handleMagicLink = async (e: FormEvent) => {
-    e.preventDefault()
-    if (!email.trim()) return
-    await supabase.auth.signInWithOtp({ email: email.trim() })
-    setMagicLinkSent(true)
-  }
-
-  if (loading) {
-    return (
-      <div className="mx-auto max-w-md px-4 py-16 text-center text-ink-light">
-        Cargando...
-      </div>
-    )
-  }
-
-  if (!session) {
-    return (
-      <div className="mx-auto max-w-md px-4 py-16">
-        <Card className="border-cream-dark">
-          <CardContent className="space-y-4 p-6 text-center">
-            <span className="mx-auto flex size-12 items-center justify-center rounded-full bg-sky/30 text-sky-dark">
-              <LogIn className="size-6" />
-            </span>
-            <h1 className="text-2xl font-bold text-ink">Inicia sesión</h1>
-            <p className="text-ink-light">
-              Para añadir el perfil de tu perro, primero inicia sesión con tu
-              correo. Te enviaremos un enlace mágico.
-            </p>
-            {magicLinkSent ? (
-              <p className="rounded-card bg-sage/20 p-3 text-sage-dark">
-                Revisa tu correo y haz clic en el enlace para continuar.
-              </p>
-            ) : (
-              <form onSubmit={handleMagicLink} className="space-y-3">
-                <Input
-                  type="email"
-                  required
-                  placeholder="tu@correo.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="border-cream-dark"
-                />
-                <Button type="submit" className="w-full bg-gold text-ink hover:bg-gold-dark">
-                  Enviar enlace mágico
-                </Button>
-              </form>
-            )}
-          </CardContent>
-        </Card>
-      </div>
-    )
   }
 
   if (success) {

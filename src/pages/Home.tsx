@@ -3,7 +3,6 @@ import { Link } from "react-router-dom"
 import { PawPrint, Search, HeartHandshake } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { supabase } from "@/lib/supabase"
 import type { CommunityHighlight } from "@/lib/types"
 
 export function Home() {
@@ -12,11 +11,9 @@ export function Home() {
 
   useEffect(() => {
     let active = true
-    supabase
-      .from("community_highlights")
-      .select("*")
-      .limit(3)
-      .then(({ data }) => {
+    fetch("/api/community-highlights")
+      .then((res) => res.json())
+      .then((data) => {
         if (active) {
           setHighlights(data ?? [])
           setLoading(false)
