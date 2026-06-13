@@ -44,7 +44,25 @@ export function ResourceCard({
           <p className="text-sm text-ink-light">{resource.description}</p>
         )}
         <div className="space-y-1 text-sm text-ink-light">
-          {resource.address && resource.maps_url ? (
+          {resource.address && (
+            resource.maps_url ? (
+              <a
+                href={resource.maps_url}
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 text-sky-dark hover:underline"
+              >
+                <MapPin className="size-4" />
+                {resource.address}
+              </a>
+            ) : (
+              <p className="flex items-center gap-2">
+                <MapPin className="size-4 text-sage-dark" />
+                {resource.address}
+              </p>
+            )
+          )}
+          {resource.maps_url && (
             <a
               href={resource.maps_url}
               target="_blank"
@@ -52,14 +70,9 @@ export function ResourceCard({
               className="flex items-center gap-2 text-sky-dark hover:underline"
             >
               <MapPin className="size-4" />
-              {resource.address}
+              Maps
             </a>
-          ) : resource.address ? (
-            <p className="flex items-center gap-2">
-              <MapPin className="size-4 text-sage-dark" />
-              {resource.address}
-            </p>
-          ) : null}
+          )}
           {resource.phone && (
             <p className="flex items-center gap-2">
               <Phone className="size-4 text-sage-dark" />
@@ -74,7 +87,7 @@ export function ResourceCard({
               className="flex items-center gap-2 text-sky-dark hover:underline"
             >
               <Globe className="size-4" />
-              Sitio web
+              {resource.website}
             </a>
           )}
         </div>
