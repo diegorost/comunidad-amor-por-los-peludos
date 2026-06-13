@@ -2,19 +2,20 @@
 @import "tw-animate-css";
 
 @theme {
-  --font-sans: "Quicksand", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "DM Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Nunito", "Segoe UI", system-ui, sans-serif;
 
   /* Paleta cálida: crema, dorado, verde salvia, azul cielo */
-  --color-cream: #fdf8f0;
-  --color-cream-dark: #f6ecd9;
-  --color-gold: #f2b84b;
-  --color-gold-dark: #d99a2b;
-  --color-sage: #8fae8b;
-  --color-sage-dark: #6f9268;
-  --color-sky: #8ecae6;
-  --color-sky-dark: #5fa8cf;
-  --color-ink: #4a3f35;
-  --color-ink-light: #7a6f64;
+  --color-cream: oklch(0.975 0.018 85);
+  --color-cream-dark: oklch(0.94 0.022 82);
+  --color-gold: oklch(0.73 0.15 73);
+  --color-gold-dark: oklch(0.66 0.14 72);
+  --color-sage: oklch(0.72 0.09 135);
+  --color-sage-dark: oklch(0.6 0.09 135);
+  --color-sky: oklch(0.86 0.07 225);
+  --color-sky-dark: oklch(0.7 0.09 225);
+  --color-ink: oklch(0.28 0.035 65);
+  --color-ink-light: oklch(0.5 0.035 65);
 
   --radius-card: 1.5rem;
 
@@ -55,5 +56,9 @@
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3 {
+    font-family: var(--font-display);
   }
 }
