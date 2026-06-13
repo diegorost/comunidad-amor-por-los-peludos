@@ -1,73 +1,42 @@
-# React + TypeScript + Vite
+# Comunidad Amor por los Peludos
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sitio web de la comunidad de dueños de perros del edificio: perfiles de los peludos, recursos útiles (veterinarios, paseadores, etc.) y tips/reglas de la comunidad.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Vite + React + TypeScript
+- React Router
+- Tailwind CSS v4 + shadcn/ui
+- Cloudflare Pages (hosting) + Cloudflare Pages Functions (API en `functions/api`)
+- Cloudflare D1 (base de datos SQL, migraciones en `migrations/`) + Cloudflare R2/Images (fotos)
 
-## React Compiler
+## Diseño
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Mobile-first, paleta cálida (crema, dorado, verde salvia, azul cielo) definida en `src/index.css` con variables `oklch`
+- Tipografías: DM Sans (texto) y Nunito (títulos), cargadas desde Google Fonts en `index.html`
+- Acceso siempre gratuito para la comunidad
 
-## Expanding the ESLint configuration
+## Estructura
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- `src/pages` — páginas: Home, Dogs (Peludos), Resources (Recursos), Tips (Reglas/Tips), y sus formularios de alta/edición
+- `src/components` — componentes compartidos (DogCard, TipCard, PhotoDialog, EmptyState, UI de shadcn)
+- `functions/api` — endpoints de la API (dogs, resources, tips, upload de imágenes, community-highlights)
+- `migrations` — migraciones SQL para D1
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Desarrollo
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # entorno de desarrollo
+npm run build    # compila (tsc -b && vite build)
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Deploy
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run build
+npx wrangler pages deploy dist --project-name comunidad-amor-por-los-peludos --branch main --commit-dirty=true
 ```
+
+El deploy automático también está configurado en Cloudflare Pages al hacer push a `main` (build command: `npm run build`).
