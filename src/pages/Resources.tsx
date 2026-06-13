@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react"
-import { ShoppingBag, Stethoscope, HeartPulse } from "lucide-react"
+import { Link } from "react-router-dom"
+import { ShoppingBag, Stethoscope, HeartPulse, Plus } from "lucide-react"
 import { ResourceCard } from "@/components/ResourceCard"
 import { EmptyState } from "@/components/EmptyState"
+import { Button } from "@/components/ui/button"
 import { supabase } from "@/lib/supabase"
 import type { Resource, ResourceCategory } from "@/lib/types"
 
@@ -39,6 +41,12 @@ export function Resources() {
           Encuentra ayuda cuando la necesites: tiendas, clínicas y veterinarios
           de confianza recomendados por la comunidad.
         </p>
+        <Button asChild className="bg-gold text-ink hover:bg-gold-dark">
+          <Link to="/recursos/anadir">
+            <Plus className="size-4" />
+            Añadir recurso
+          </Link>
+        </Button>
       </div>
 
       <div className="mt-8 space-y-10">
