@@ -12,8 +12,8 @@ const navItems = [
 
 function PawBadge() {
   return (
-    <span className="flex size-9 items-center justify-center rounded-full bg-gold text-ink">
-      <PawPrint className="size-5" />
+    <span className="flex size-11 items-center justify-center rounded-full bg-gold text-ink">
+      <PawPrint className="size-6" />
     </span>
   )
 }
