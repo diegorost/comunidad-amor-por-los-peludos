@@ -16,7 +16,7 @@ export function Layout() {
   return (
     <div className="flex min-h-screen flex-col bg-cream">
       <header className="sticky top-0 z-50 border-b border-cream-dark bg-cream/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-4 py-3">
+        <div className="mx-auto grid max-w-5xl grid-cols-2 items-center px-4 py-3 md:grid-cols-3">
           <Link to="/" className="flex items-center gap-2 font-bold text-ink">
             <span className="flex size-9 items-center justify-center rounded-full bg-gold text-ink">
               <PawPrint className="size-5" />
@@ -24,7 +24,7 @@ export function Layout() {
             <span className="text-lg">Comunidad Amor por los Peludos</span>
           </Link>
 
-          <nav className="hidden items-center gap-1 md:flex">
+          <nav className="hidden items-center justify-center gap-1 md:flex">
             {navItems.map((item) => (
               <NavLink
                 key={item.to}
@@ -45,7 +45,7 @@ export function Layout() {
 
           <button
             type="button"
-            className="flex size-9 items-center justify-center rounded-full text-ink md:hidden"
+            className="flex size-9 items-center justify-center justify-self-end rounded-full text-ink md:hidden"
             aria-label="Abrir menú"
             onClick={() => setOpen((v) => !v)}
           >

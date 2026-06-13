@@ -34,6 +34,9 @@ export function Home() {
           className="size-40 rounded-card bg-cream object-contain shadow-lg md:size-56"
         />
         <div className="space-y-3">
+          <h1 className="text-3xl font-bold text-ink md:text-5xl">
+            Comunidad Amor por los Peludos
+          </h1>
           <p className="mx-auto max-w-xl text-ink-light md:text-lg">
             Una comunidad cálida para dueños de perros (Golden Retrievers o
             no!), donde compartir el perfil de tu peludo y descubrir recursos
