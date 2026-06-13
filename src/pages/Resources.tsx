@@ -12,24 +12,28 @@ const sections: {
   title: string
   emoji: string
   iconBg: string
+  hiddenTag: string
 }[] = [
   {
     category: "veterinario",
     title: "Veterinarios y Especialidades",
     emoji: "🩺",
     iconBg: "bg-sage/30",
+    hiddenTag: "vet",
   },
   {
     category: "clinica",
     title: "Clínicas de Emergencia",
     emoji: "🚑",
     iconBg: "bg-sky/30",
+    hiddenTag: "urgencia",
   },
   {
     category: "tienda",
     title: "Tiendas Recomendadas",
     emoji: "🛍️",
     iconBg: "bg-gold/30",
+    hiddenTag: "tienda",
   },
 ]
 
@@ -82,14 +86,15 @@ export function Resources() {
       </div>
 
       <div className="mt-8 space-y-10">
-        {sections.map(({ category, title, emoji, iconBg }) => {
+        {sections.map(({ category, title, emoji, iconBg, hiddenTag }) => {
           const term = query.trim().toLowerCase()
           const items = resources.filter(
             (r) =>
               r.category === category &&
               (!term ||
                 r.name.toLowerCase().includes(term) ||
-                (r.description?.toLowerCase().includes(term) ?? false))
+                (r.description?.toLowerCase().includes(term) ?? false) ||
+                hiddenTag.includes(term))
           )
           return (
             <section key={category}>
