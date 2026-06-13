@@ -37,7 +37,7 @@ export function DogCard({
           <img
             src={dog.photo_url}
             alt={`Foto de ${dog.name}`}
-            className="size-full cursor-pointer object-cover"
+            className="size-full cursor-pointer object-contain"
             onClick={() => setPhotoOpen(true)}
           />
         ) : (
