@@ -7,7 +7,7 @@ const navItems = [
   { to: "/", label: "Inicio" },
   { to: "/perritos", label: "Peludos" },
   { to: "/recursos", label: "Recursos" },
-  { to: "/tips", label: "Tips" },
+  { to: "/tips", label: "Tips/Reglas" },
 ]
 
 export function Layout() {
