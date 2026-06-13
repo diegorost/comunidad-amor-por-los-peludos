@@ -34,8 +34,10 @@ export function Home() {
           className="size-40 rounded-card bg-cream object-contain shadow-lg md:size-56"
         />
         <div className="space-y-3">
-          <h1 className="text-3xl font-bold text-ink md:text-5xl">
+          <h1 className="flex items-center justify-center gap-3 text-3xl font-bold text-ink md:text-5xl">
+            <PawPrint className="size-8 text-gold-dark md:size-12" />
             Comunidad Amor por los Peludos
+            <PawPrint className="size-8 text-gold-dark md:size-12" />
           </h1>
           <p className="mx-auto max-w-xl text-ink-light md:text-lg">
             Una comunidad cálida para dueños de perros (Golden Retrievers o
