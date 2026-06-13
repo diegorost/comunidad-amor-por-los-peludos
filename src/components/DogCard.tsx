@@ -31,13 +31,13 @@ export function DogCard({
   }
 
   return (
-    <Card className="overflow-hidden border-cream-dark transition-transform hover:-translate-y-1 hover:shadow-lg">
-      <div className="aspect-square w-full bg-cream-dark">
+    <Card className="overflow-hidden border-cream-dark">
+      <div className="aspect-video w-full bg-cream-dark">
         {dog.photo_url ? (
           <img
             src={dog.photo_url}
             alt={`Foto de ${dog.name}`}
-            className="size-full cursor-pointer object-cover"
+            className="mx-auto size-full w-3/4 cursor-pointer object-contain"
             onClick={() => setPhotoOpen(true)}
           />
         ) : (
