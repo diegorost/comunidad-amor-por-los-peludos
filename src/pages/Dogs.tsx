@@ -58,7 +58,7 @@ export function Dogs() {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Busca por nombre o raza..."
-            className="h-12 rounded-full border-transparent bg-white pl-9 shadow-lg"
+            className="h-12 rounded-full border-transparent !bg-white pl-9 shadow-lg"
           />
         </div>
       </div>
